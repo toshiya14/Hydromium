@@ -4,22 +4,22 @@ using System.Text;
 
 namespace ShibaSoft.Hydromium.Models;
 
-public class PageConfig : Stylet.PropertyChangedBase
+public record PageConfig
 {
-    public string? Id { get; set; }
-    public int? AnchorPoint { get; set; }
+    public string Id { get; init; }
+    public int? AnchorPoint { get; init; }
 
-    public Boundary? ClientBoundary { get; set; }
+    public Boundary? ClientBoundary { get; init; }
 
-    public string? StartUrl { get; set; }
+    public string PageUrl { get; init; }
 
-    public bool? IsClickThrough { get; set; }
+    public bool? IsClickThrough { get; init; }
 
-    public bool? IsResizable { get; set; }
+    public bool? IsResizable { get; init; }
 
-    public bool? IsInteractived { get; set; }
+    public bool? IsInteractived { get; init; }
 
-    public string? IdentityName { get; set; }
+    public string IdentityName { get; init; }
 
     public PageConfig() {
         this.Id = NUlid.Ulid.NewUlid().ToString();

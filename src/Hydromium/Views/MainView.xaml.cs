@@ -12,16 +12,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace ShibaSoft.Hydromium.Views
+namespace ShibaSoft.Hydromium.Views;
+
+/// <summary>
+/// MainWindow.xaml 的交互逻辑
+/// </summary>
+public partial class MainView : Window
 {
-    /// <summary>
-    /// MainWindow.xaml 的交互逻辑
-    /// </summary>
-    public partial class MainView : Window
+    public MainView()
     {
-        public MainView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

@@ -11,7 +11,9 @@
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance vm:PageViewModel}"
         Title="Page" Height="450" Width="800">
-    <DockPanel>
-        <wv2:WebView2 Name="Browser" Source="{Binding Source}" />
-    </DockPanel>
+    <Grid x:Name="RootWrap">
+        <Grid Background="#aa000000" Height="64" x:Name="InitializingFlag" Visibility="Collapsed">
+            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Text="WebView2 Engine Is Initializing..." Foreground="#ffffff" />
+        </Grid>
+    </Grid>
 </Window>

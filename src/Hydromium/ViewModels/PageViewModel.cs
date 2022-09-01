@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
+using ShibaSoft.Hydromium.Events;
 using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.Wpf;
 using ShibaSoft.Hydromium.Models;
@@ -13,8 +14,6 @@ namespace ShibaSoft.Hydromium.ViewModels;
 public class PageViewModel : Screen
 {
     public IWindowManager WindowManager { get; set; }
-
-    public string Source { get; set; }
 
     public PageConfig Config { get; set; }
 
@@ -29,6 +28,9 @@ public class PageViewModel : Screen
 
     private void PageViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
-        this.EventAggregator.Publish(new PageChangedEvent { PageInstanceId = this.Config.Id });
+        if (e.PropertyName == nameof(this.Config))
+        {
+            this.EventAggregator.Publish(new PageSourceChangedEvent { InstanceId = this.Config.Id, Url = this.Config.PageUrl });
+        }
     }
 }

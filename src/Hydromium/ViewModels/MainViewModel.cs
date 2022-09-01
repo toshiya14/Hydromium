@@ -16,7 +16,6 @@ public class MainViewModel : Screen
         WindowManager = wndmgr;
         Container = container;
     }
-    private List<Tuple<PageConfig, PageView>> Pages { get; set; } = new();
     private IWindowManager WindowManager { get; }
     private IContainer Container { get; }
 
@@ -24,6 +23,6 @@ public class MainViewModel : Screen
     {
         var page = this.Container.Get<PageViewModel>();
         WindowManager.ShowWindow(page);
-        page.Source = "https://bilibili.com";
+        page.Config = page.Config with { PageUrl = "https://bilibili.com" };
     }
 }
