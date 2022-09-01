@@ -11,21 +11,44 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Microsoft.Web.WebView2.Core;
+using ShibaSoft.Hydromium.Models;
+using ShibaSoft.Hydromium.ViewModels;
+using Stylet;
 
 namespace ShibaSoft.Hydromium.Views;
 /// <summary>
 /// PageView.xaml 的交互逻辑
 /// </summary>
-public partial class PageView : Window
+public partial class PageView : Window, IHandle<PageChangedEvent>
 {
-    public PageView()
+    public PageView(IEventAggregator eventAggregator)
     {
         InitializeComponent();
-        this.Browser.NavigationCompleted += Browser_NavigationCompleted;
+        eventAggregator.Subscribe(this);
     }
 
-    private void Browser_NavigationCompleted(object sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs e)
+
+    public void Handle(PageChangedEvent e)
     {
-        this.Browser.UpdateWindowPos();
+        var page = this.DataContext as PageViewModel;
+        if (page is not null && page.Config.Id == e.PageInstanceId)
+        {
+            if (page.Source is not null) {
+                this.NavigateTo(page.Source);
+            }
+        }
+    }
+
+    public async void NavigateTo(string url)
+    {
+        if (this.Browser.CoreWebView2 is null)
+        {
+            var env = await CoreWebView2Environment.CreateAsync(
+                userDataFolder: ""
+            );
+            await this.Browser.EnsureCoreWebView2Async(env);
+        }
+        this.Browser.CoreWebView2.Navigate(url);
     }
 }

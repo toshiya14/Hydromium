@@ -7,6 +7,7 @@
         xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         xmlns:vm="clr-namespace:ShibaSoft.Hydromium.ViewModels"
         xmlns:s="https://github.com/canton7/Stylet"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance vm:PageViewModel}"
         Title="Page" Height="450" Width="800">

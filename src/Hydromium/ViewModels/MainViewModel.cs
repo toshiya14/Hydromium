@@ -1,4 +1,7 @@
-﻿using ShibaSoft.Hydromium.Views;
+﻿using ShibaSoft.Hydromium.Models;
+using ShibaSoft.Hydromium.Views;
+using Stylet;
+using StyletIoC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,15 +10,20 @@ using System.Threading.Tasks;
 
 namespace ShibaSoft.Hydromium.ViewModels;
 
-public class MainViewModel
+public class MainViewModel : Screen
 {
-    public List<Tuple<PageViewModel, PageView>> Pages { get; set; } = new ();
+    public MainViewModel(IWindowManager wndmgr, IContainer container) {
+        WindowManager = wndmgr;
+        Container = container;
+    }
+    private List<Tuple<PageConfig, PageView>> Pages { get; set; } = new();
+    private IWindowManager WindowManager { get; }
+    private IContainer Container { get; }
+
     public void CreateView()
     {
-        var window = new PageView();
-        var viewmodel = new PageViewModel();
-        window.Show();
-        window.DataContext = viewmodel;
-        this.Pages.Add(new Tuple<PageViewModel, PageView>(viewmodel, window));
+        var page = this.Container.Get<PageViewModel>();
+        WindowManager.ShowWindow(page);
+        page.Source = "https://bilibili.com";
     }
 }
